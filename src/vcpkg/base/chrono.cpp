@@ -15,7 +15,8 @@ namespace vcpkg
 #if defined(_WIN32)
         return _mkgmtime(time_ptr);
 #else
-        return timegm(time_ptr);
+	assert(false);
+	//return timegm(time_ptr);
 #endif
     }
 

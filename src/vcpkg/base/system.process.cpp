@@ -32,6 +32,10 @@ extern char** environ;
 #include <unistd.h>
 #endif
 
+#if defined(__HAIKU__)
+#include <image.h>
+#endif
+
 #if defined(_WIN32)
 #include <Psapi.h>
 #include <TlHelp32.h>
@@ -262,6 +266,11 @@ namespace vcpkg
         auto written = readlink(procpath, buf, sizeof(buf));
         Checks::check_exit(VCPKG_LINE_INFO, written != -1, "Could not determine current executable path.");
         return Path(buf, written);
+#elif defined(__HAIKU__)
+	image_info info = {};
+	for (int32 cookie { 0 }; get_next_image_info(B_CURRENT_TEAM, &cookie, &info) == B_OK && info.type != B_APP_IMAGE;)
+        	;
+	return Path(info.name, strlen(info.name));
 #else /* LINUX */
         char buf[1024 * 4] = {};
         auto written = readlink("/proc/self/exe", buf, sizeof(buf));
@@ -1175,7 +1184,7 @@ namespace
 
         bool create(DiagnosticContext& context)
         {
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(__HAIKU__)
             static std::mutex pipe_creation_lock;
             std::lock_guard<std::mutex> lck{pipe_creation_lock};
             if (pipe(pipefd))

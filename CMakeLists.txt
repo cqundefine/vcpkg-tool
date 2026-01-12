@@ -157,6 +157,14 @@ else()
     endif()
 endif()
 
+if (HAIKU)
+    # Haiku needs some extra compile definitions to make important stuff in its headers available.
+    add_compile_definitions(_DEFAULT_SOURCE)
+    add_compile_definitions(_GNU_SOURCE)
+    add_compile_definitions(__USE_GNU)
+    link_libraries(network)
+endif()
+
 if(APPLE)
     set(CMAKE_C_ARCHIVE_CREATE   "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
     set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")

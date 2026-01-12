@@ -785,8 +785,10 @@ namespace vcpkg
         return "android";
 #elif defined(__linux__)
         return "linux";
+#elif defined(__HAIKU__)
+	return "haiku";
 #else
-        return "unknown"
+        return "unknown";
 #endif
     }
 }

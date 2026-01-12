@@ -39,6 +39,7 @@ namespace
         {"freebsd", ToolOs::FreeBsd},
         {"openbsd", ToolOs::OpenBsd},
         {"solaris", ToolOs::Solaris},
+	{"haiku", ToolOs::Haiku},
     };
 }
 
@@ -179,6 +180,8 @@ namespace vcpkg
         auto data = get_raw_tool_data(tool_data_table, tool, hp, ToolOs::OpenBsd);
 #elif defined(__SVR4) && defined(__sun)
         auto data = get_raw_tool_data(tool_data_table, tool, hp, ToolOs::Solaris);
+#elif defined(__HAIKU__)
+	auto data = get_raw_tool_data(tool_data_table, tool, hp, ToolOs::Haiku);
 #else
         return nullopt;
 #endif

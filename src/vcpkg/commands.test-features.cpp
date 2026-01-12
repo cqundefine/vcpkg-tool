@@ -634,6 +634,7 @@ namespace vcpkg
                 if (test_features_separately &&
                     (!baseline || !Util::Sets::contains(baseline->no_separate_feature_test, feature->name)))
                 {
+		#if 0
                     InternalFeatureSet separate_features{{FeatureNameCore.to_string(), feature->name}};
                     if (baseline)
                     {
@@ -658,6 +659,8 @@ namespace vcpkg
                     {
                         specs_to_test.emplace_back(package_spec, std::move(separate_features), feature->name);
                     }
+		#endif
+		    assert(false);
                 }
             }
 

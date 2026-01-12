@@ -1035,7 +1035,11 @@ namespace vcpkg
         {
             return m_paths.scripts / "toolchains/ios.cmake";
         }
-        else
+	else if (cmake_system_name == "Haiku")
+	{
+	    return m_paths.scripts / "toolchains/haiku.cmake";
+	}
+	else
         {
             Checks::msg_exit_maybe_upgrade(VCPKG_LINE_INFO,
                                            msgUndeterminedToolChainForTriplet,

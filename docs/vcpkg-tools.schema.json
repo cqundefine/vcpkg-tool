@@ -22,7 +22,7 @@
           "os": {
             "type": "string",
             "description": "The platform where the record is valid.",
-            "enum": [ "windows", "osx", "linux", "freebsd", "openbsd", "solaris" ]
+            "enum": [ "windows", "osx", "linux", "freebsd", "openbsd", "solaris", "haiku" ]
           },
           "version": {
             "type": "string",
